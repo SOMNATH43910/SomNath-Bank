@@ -1,0 +1,1079 @@
+{
+  "info": {
+    "_postman_id": "b8ec6f3c-a646-463f-8c99-3a541aad6728",
+    "name": "SOMNATH_BANK",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38637976",
+    "_collection_link": "https://go.postman.co/collection/38637976-b8ec6f3c-a646-463f-8c99-3a541aad6728?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Admin Login Test:",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"somnath@somnathbank.com\",\n  \"password\": \"Admin@123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Register New Customer",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb21uYXRoQHNvbW5hdGhiYW5rLmNvbSIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzcyNzc1MDk2LCJleHAiOjE3NzI4NjE0OTZ9.dUTB4fNtTelpy8Ob2E49Y0uUFAWt8USdMSuTMSsk9zM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fullName\": \"Subhankar Rana \",\n  \"email\": \"subha123@gmail.com\",\n  \"phone\": \"8101428380\",\n  \"password\": \"subha@123\",\n  \"aadharNumber\": \"1141-2222-3333\",\n  \"panNumber\": \"SMIMI2307R\",\n  \"accountType\": \"SAVINGS\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "A/C OPEN _ verification check Admin",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb21uYXRoQHNvbW5hdGhiYW5rLmNvbSIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzcyNzY5OTEzLCJleHAiOjE3NzI4NTYzMTN9.zYS_5mlFTDpdLkXwOqjF0pyI9n4hkGr_qo5V8d7WOWo",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/accounts/admin/all",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "accounts",
+            "admin",
+            "all"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Account Approve by Admin",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb21uYXRoQHNvbW5hdGhiYW5rLmNvbSIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzcyNzE1NjQ3LCJleHAiOjE3NzI4MDIwNDd9.LJRxtaaRv2PiuvXlyXnIoU9TpnPwqi_50tVl0Cv92mk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/accounts/admin/approve/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "accounts",
+            "admin",
+            "approve",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Rahul /customer_Login",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"rahul@gmail.com\",\n  \"password\": \"rahul123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New_customer_Priya Sharma_REG",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb21uYXRoQHNvbW5hdGhiYW5rLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc3MjY0MTMwMSwiZXhwIjoxNzcyNzI3NzAxfQ.K82Ww1501Rgyxba_tFRYyruia3SCNLJdKcfkV2b5jhk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fullName\": \"Priya Sharma\",\n  \"email\": \"priya@gmail.com\",\n  \"phone\": \"9123456780\",\n  \"password\": \"priya123\",\n  \"aadharNumber\": \"987654321012\",\n  \"panNumber\": \"XYZAB5678G\",\n  \"accountType\": \"SAVINGS\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Account number, check all the customer",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb21uYXRoQHNvbW5hdGhiYW5rLmNvbSIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzcyNzY5OTEzLCJleHAiOjE3NzI4NTYzMTN9.zYS_5mlFTDpdLkXwOqjF0pyI9n4hkGr_qo5V8d7WOWo",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/accounts/admin/all",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "accounts",
+            "admin",
+            "all"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PRIYA_AAPROVED",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb21uYXRoQHNvbW5hdGhiYW5rLmNvbSIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzcyNzE2MDQxLCJleHAiOjE3NzI4MDI0NDF9.NlnwJbrVrAQ-e3o-FQqurcbIZrjCfuhYg6I9_KMWv6I",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/accounts/admin/approve/4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "accounts",
+            "admin",
+            "approve",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "A/C-Transfer",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb21uYXRoQHNvbW5hdGhiYW5rLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc3MjY0MTMwMSwiZXhwIjoxNzcyNzI3NzAxfQ.K82Ww1501Rgyxba_tFRYyruia3SCNLJdKcfkV2b5jhk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fromAccount\": \"SNB921381240\",\n  \"toAccount\": \"SNB406838596\",\n  \"amount\": 2000,\n  \"description\": \"Test transfer\",\n  \"mode\": \"IMPS\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/transactions/transfer",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "transactions",
+            "transfer"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Deposit_ amount",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb21uYXRoQHNvbW5hdGhiYW5rLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc3MjY0MTMwMSwiZXhwIjoxNzcyNzI3NzAxfQ.K82Ww1501Rgyxba_tFRYyruia3SCNLJdKcfkV2b5jhk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/transactions/admin/deposit/SNB921381240?amount=10000",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "transactions",
+            "admin",
+            "deposit",
+            "SNB921381240"
+          ],
+          "query": [
+            {
+              "key": "amount",
+              "value": "10000"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Rahul Loan Apply",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb21uYXRoQHNvbW5hdGhiYW5rLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc3MjY0MTMwMSwiZXhwIjoxNzcyNzI3NzAxfQ.K82Ww1501Rgyxba_tFRYyruia3SCNLJdKcfkV2b5jhk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accountNumber\": \"SNB921381240\",\n  \"loanType\": \"PERSONAL\",\n  \"loanAmount\": 50000,\n  \"tenureMonths\": 12,\n  \"purpose\": \"Home renovation\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/loans/apply",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "loans",
+            "apply"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Admin_Approve_Loan",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb21uYXRoQHNvbW5hdGhiYW5rLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc3MjY0MTMwMSwiZXhwIjoxNzcyNzI3NzAxfQ.K82Ww1501Rgyxba_tFRYyruia3SCNLJdKcfkV2b5jhk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/loans/admin/approve/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "loans",
+            "admin",
+            "approve",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "LOAN_DETAILS_CHECK",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb21uYXRoQHNvbW5hdGhiYW5rLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc3MjY0MTMwMSwiZXhwIjoxNzcyNzI3NzAxfQ.K82Ww1501Rgyxba_tFRYyruia3SCNLJdKcfkV2b5jhk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/loans/admin/all",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "loans",
+            "admin",
+            "all"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PRIYA_CARD_APPLY",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwcml5YUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9DVVNUT01FUiIsImlhdCI6MTc3MjcxNTc2NywiZXhwIjoxNzcyODAyMTY3fQ.gKGNCpClQH6vK66Y18SdD_TJuJ4O26WBdEca1BFkzsg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accountNumber\": \"SNB406838596\",\n  \"cardType\": \"DEBIT\",\n  \"cardNetwork\": \"RUPAY\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/cards/apply",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "cards",
+            "apply"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PRIYA_LOGIN",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"priya@gmail.com\",\n  \"password\": \"priya123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Manika_login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"mbhowick772@gmail.com\",\n  \"password\": \"mimi123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Rahul card APPLY",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyYWh1bEBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9DVVNUT01FUiIsImlhdCI6MTc3MjczMTUwMSwiZXhwIjoxNzcyODE3OTAxfQ.jEjLBy1ayoWEY6j7ZF6mw6gb6xEUkICpw7ywEEvpN8I",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accountNumber\": \"SNB921381240\",\n  \"cardType\": \"DEBIT\",\n  \"cardNetwork\": \"RUPAY\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/cards/apply",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "cards",
+            "apply"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PRIYA CARD APPROVED",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb21uYXRoQHNvbW5hdGhiYW5rLmNvbSIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzcyNzMxOTUwLCJleHAiOjE3NzI4MTgzNTB9.QLyQ9JQ4OXVozhTfDAvou2oABuiAWzZKaRRMPO9bsq0",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/cards/admin/approve/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "cards",
+            "admin",
+            "approve",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RAHUL CARD APPROVED",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb21uYXRoQHNvbW5hdGhiYW5rLmNvbSIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzcyNzMyMDYzLCJleHAiOjE3NzI4MTg0NjN9.N69T_q7QPM3HKa_3Wj2lPflXBL8Bl-6LK77KLEvcjU0",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/cards/admin/approve/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "cards",
+            "admin",
+            "approve",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CARD_CHECK_1",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyYWh1bEBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9DVVNUT01FUiIsImlhdCI6MTc3MjczMjEzOCwiZXhwIjoxNzcyODE4NTM4fQ.0S0WrntUDeKajOCFwJty0enxvaNsTQSaxOMxm2yBa7E",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/cards/my",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "cards",
+            "my"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CREDIT_CARD APPLY_2",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwcml5YUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9DVVNUT01FUiIsImlhdCI6MTc3MjczMjIzMiwiZXhwIjoxNzcyODE4NjMyfQ.jLoiMVWgWY-pC2Tgy_7ONjmR1bxX0iBLiwqZ2kLNciw",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accountNumber\": \"SNB406838596\",\n  \"cardType\": \"CREDIT\",\n  \"cardNetwork\": \"VISA\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/cards/apply",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "cards",
+            "apply"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Manika_Master_Debit_Card_apply",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYmhvd2ljazc3MkBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9DVVNUT01FUiIsImlhdCI6MTc3MjczMjM5MSwiZXhwIjoxNzcyODE4NzkxfQ.Bp5XneyAehCgN4CaF2ySrlTiq4DV-mxTHmv7XUZIpww",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accountNumber\": \"SNB509679729\",\n  \"cardType\": \"DEBIT\",\n  \"cardNetwork\": \"MASTERCARD\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/cards/apply",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "cards",
+            "apply"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Priya_Card APPROVED",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb21uYXRoQHNvbW5hdGhiYW5rLmNvbSIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzcyNzMyMDYzLCJleHAiOjE3NzI4MTg0NjN9.N69T_q7QPM3HKa_3Wj2lPflXBL8Bl-6LK77KLEvcjU0",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/cards/admin/approve/3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "cards",
+            "admin",
+            "approve",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "MANIKA_CARD_APPROVED",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb21uYXRoQHNvbW5hdGhiYW5rLmNvbSIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzcyNzMyMDYzLCJleHAiOjE3NzI4MTg0NjN9.N69T_q7QPM3HKa_3Wj2lPflXBL8Bl-6LK77KLEvcjU0",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/cards/admin/approve/4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "cards",
+            "admin",
+            "approve",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RAHUL_FD_Open",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyYWh1bEBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9DVVNUT01FUiIsImlhdCI6MTc3Mjc2OTY4NiwiZXhwIjoxNzcyODU2MDg2fQ.qDV7GJnlm9Y-aks64ZEDvRbPrkLtcKcmT5c6r6eLgeo",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accountNumber\": \"SNB921381240\",\n  \"tenureYears\": 2,\n  \"amount\": 10000\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/fd/open",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "fd",
+            "open"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Priya_FD-open",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwcml5YUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9DVVNUT01FUiIsImlhdCI6MTc3Mjc2OTg0NywiZXhwIjoxNzcyODU2MjQ3fQ.hHXIG-SfGo1E2DtZTAc3bb6jrjYi5MMD8FcIRCDbesM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accountNumber\": \"SNB406838596\",\n  \"tenureYears\": 3,\n  \"amount\": 1000\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/fd/open",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "fd",
+            "open"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Admin Dashboard",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb21uYXRoQHNvbW5hdGhiYW5rLmNvbSIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzcyNzY5OTEzLCJleHAiOjE3NzI4NTYzMTN9.zYS_5mlFTDpdLkXwOqjF0pyI9n4hkGr_qo5V8d7WOWo",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/admin/dashboard",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "admin",
+            "dashboard"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Customer Dashboard",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyYWh1bEBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9DVVNUT01FUiIsImlhdCI6MTc3Mjc2OTY4NiwiZXhwIjoxNzcyODU2MDg2fQ.qDV7GJnlm9Y-aks64ZEDvRbPrkLtcKcmT5c6r6eLgeo",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/admin/dashboard/customer",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "admin",
+            "dashboard",
+            "customer"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Subha_Login",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzb21uYXRoQHNvbW5hdGhiYW5rLmNvbSIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzcyNzc1MDk2LCJleHAiOjE3NzI4NjE0OTZ9.dUTB4fNtTelpy8Ob2E49Y0uUFAWt8USdMSuTMSsk9zM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"subha123@gmail.com\",\n    \"password\": \"subha@123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Admin_login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"somnath@somnathbank.com\",\n  \"password\": \"Admin@123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}

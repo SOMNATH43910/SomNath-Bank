@@ -15,7 +15,7 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         // React frontend ka URL (port 3000)
-        config.setAllowedOrigins(List.of("http://localhost:3000"));
+        config.setAllowedOriginPatterns(List.of("http://localhost:*"));
 
         // Saare HTTP methods allow karo
         config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));

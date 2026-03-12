@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 @Repository
@@ -16,6 +17,11 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             "t.toAccount = :accountNumber " +
             "ORDER BY t.transactionDate DESC")
     List<Transaction> findByAccountNumber(@Param("accountNumber") String accountNumber);
+
+    // ✅ NEW - Service mein use ho raha hai
+    List<Transaction> findByFromAccountOrToAccountOrderByTransactionDateDesc(
+            String fromAccount, String toAccount
+    );
 
     // Reference number se dhundho
     Transaction findByReferenceNumber(String referenceNumber);

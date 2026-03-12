@@ -7,13 +7,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface NotificationRepository extends JpaRepository<Notification, Long> {
-    // User ki saari notifications (latest pehle)
+public interface NotificationRepository
+        extends JpaRepository<Notification, Long> {
+
     List<Notification> findByUserOrderByCreatedAtDesc(User user);
 
-    // Sirf unread notifications
     List<Notification> findByUserAndIsReadFalse(User user);
 
-    // Unread count
     Long countByUserAndIsReadFalse(User user);
 }

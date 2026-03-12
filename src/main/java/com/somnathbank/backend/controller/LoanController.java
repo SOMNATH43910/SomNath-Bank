@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -25,6 +27,16 @@ public class LoanController {
             Authentication authentication) {
         return ResponseEntity.ok(
                 loanService.applyLoan(request, authentication.getName()));
+    }
+
+    // Customer: EMI repayment
+    @PostMapping("/repay/{loanId}")
+    public ResponseEntity<LoanResponse> repayLoan(
+            @PathVariable Long loanId,
+            @RequestParam BigDecimal amount,
+            Authentication authentication) {
+        return ResponseEntity.ok(
+                loanService.repayLoan(loanId, amount, authentication.getName()));
     }
 
     // Customer: apne loans dekho

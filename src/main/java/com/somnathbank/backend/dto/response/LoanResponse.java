@@ -32,4 +32,5 @@ public class LoanResponse {
     private String purpose;
     private LocalDateTime appliedAt;
     private LocalDateTime approvedAt;
+    private BigDecimal paidAmount;
 }

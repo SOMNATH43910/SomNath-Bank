@@ -7,10 +7,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "transactions")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 @Builder
 public class Transaction {
 
@@ -18,7 +16,6 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // account number store karo (object nahi) — query fast hoti hai
     private String fromAccount;
     private String toAccount;
 
@@ -39,9 +36,10 @@ public class Transaction {
     @Builder.Default
     private TransactionStatus status = TransactionStatus.SUCCESS;
 
-    // ye UTR number jaisa hai — har transaction ka unique ID
     @Column(unique = true)
     private String referenceNumber;
+
+    private BigDecimal balanceAfter; // ✅ Add kiya
 
     private LocalDateTime transactionDate;
 
@@ -51,7 +49,7 @@ public class Transaction {
     }
 
     public enum TransactionType {
-        CREDIT, DEBIT, TRANSFER, DEPOSIT, WITHDRAWAL
+        CREDIT, DEBIT
     }
 
     public enum TransactionMode {

@@ -21,4 +21,6 @@ public class TransactionResponse {
     private LocalDateTime transactionDate;
     private Boolean success;
     private String message;
+    private BigDecimal balanceAfter;
+
 }

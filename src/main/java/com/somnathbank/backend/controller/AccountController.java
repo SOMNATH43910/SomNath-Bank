@@ -17,25 +17,18 @@ public class AccountController {
     private final AccountService accountService;
 
     // Customer: apne accounts dekho
-    // GET /api/accounts/my
     @GetMapping("/my")
-    public ResponseEntity<List<AccountResponse>> getMyAccounts(
-            Authentication authentication) {
-        String email = authentication.getName();
-        return ResponseEntity.ok(accountService.getMyAccounts(email));
+    public ResponseEntity<List<AccountResponse>> getMyAccounts(Authentication authentication) {
+        return ResponseEntity.ok(accountService.getMyAccounts(authentication.getName()));
     }
 
     // Customer: account number se dekho
-    // GET /api/accounts/SNB000000001
     @GetMapping("/{accountNumber}")
-    public ResponseEntity<AccountResponse> getAccount(
-            @PathVariable String accountNumber) {
-        return ResponseEntity.ok(
-                accountService.getAccountByNumber(accountNumber));
+    public ResponseEntity<AccountResponse> getAccount(@PathVariable String accountNumber) {
+        return ResponseEntity.ok(accountService.getAccountByNumber(accountNumber));
     }
 
     // Admin: saare accounts dekho
-    // GET /api/accounts/admin/all
     @GetMapping("/admin/all")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<AccountResponse>> getAllAccounts() {
@@ -43,29 +36,30 @@ public class AccountController {
     }
 
     // Admin: account approve karo
-    // PUT /api/accounts/admin/approve/1
     @PutMapping("/admin/approve/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<AccountResponse> approveAccount(
-            @PathVariable Long id) {
+    public ResponseEntity<AccountResponse> approveAccount(@PathVariable Long id) {
         return ResponseEntity.ok(accountService.approveAccount(id));
     }
 
     // Admin: account reject karo
-    // PUT /api/accounts/admin/reject/1
     @PutMapping("/admin/reject/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<AccountResponse> rejectAccount(
-            @PathVariable Long id) {
+    public ResponseEntity<AccountResponse> rejectAccount(@PathVariable Long id) {
         return ResponseEntity.ok(accountService.rejectAccount(id));
     }
 
     // Admin: account block karo
-    // PUT /api/accounts/admin/block/1
     @PutMapping("/admin/block/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<AccountResponse> blockAccount(
-            @PathVariable Long id) {
+    public ResponseEntity<AccountResponse> blockAccount(@PathVariable Long id) {
         return ResponseEntity.ok(accountService.blockAccount(id));
+    }
+
+    // ✅ Admin: account unblock karo
+    @PutMapping("/admin/unblock/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<AccountResponse> unblockAccount(@PathVariable Long id) {
+        return ResponseEntity.ok(accountService.unblockAccount(id));
     }
 }

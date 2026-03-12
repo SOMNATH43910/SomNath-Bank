@@ -8,10 +8,10 @@ import java.math.BigDecimal;
 public class TransferRequest {
 
     @NotBlank(message = "From account required")
-    private String fromAccount;
+    private String fromAccountNumber; // ✅ Frontend se match
 
     @NotBlank(message = "To account required")
-    private String toAccount;
+    private String toAccountNumber;   // ✅ Frontend se match
 
     @NotNull(message = "Amount required")
     @DecimalMin(value = "1.0", message = "Minimum transfer amount is 1")
@@ -19,6 +19,5 @@ public class TransferRequest {
 
     private String description;
 
-    @NotBlank(message = "Transfer mode required")
-    private String mode; // NEFT, IMPS, UPI
+    private String mode; // ✅ Optional - @NotBlank hataya
 }

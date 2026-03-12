@@ -8,6 +8,7 @@ import com.somnathbank.backend.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
@@ -22,135 +23,133 @@ public class TransactionService {
     private final NotificationRepository notificationRepository;
     private final UserRepository userRepository;
 
-    // =====================
-    // FUND TRANSFER
-    // =====================
     @Transactional
     public TransactionResponse transfer(TransferRequest request, String email) {
 
-        // From account dhundho
         Account fromAccount = accountRepository
-                .findByAccountNumber(request.getFromAccount())
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("From account not found!"));
+                .findByAccountNumber(request.getFromAccountNumber())
+                .orElseThrow(() -> new ResourceNotFoundException("From account not found!"));
 
-        // To account dhundho
         Account toAccount = accountRepository
-                .findByAccountNumber(request.getToAccount())
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("To account not found!"));
+                .findByAccountNumber(request.getToAccountNumber())
+                .orElseThrow(() -> new ResourceNotFoundException("To account not found!"));
 
-        // Account active hai?
-        if (fromAccount.getStatus() != Account.AccountStatus.ACTIVE) {
+        if (fromAccount.getStatus() != Account.AccountStatus.ACTIVE)
             throw new RuntimeException("Your account is not active!");
-        }
 
-        if (toAccount.getStatus() != Account.AccountStatus.ACTIVE) {
+        if (toAccount.getStatus() != Account.AccountStatus.ACTIVE)
             throw new RuntimeException("Recipient account is not active!");
-        }
 
-        // Same account transfer nahi hoga
-        if (fromAccount.getAccountNumber()
-                .equals(toAccount.getAccountNumber())) {
-            throw new RuntimeException(
-                    "Cannot transfer to same account!");
-        }
+        if (fromAccount.getAccountNumber().equals(toAccount.getAccountNumber()))
+            throw new RuntimeException("Cannot transfer to same account!");
 
-        // Balance check karo
-        if (fromAccount.getBalance()
-                .compareTo(request.getAmount()) < 0) {
+        if (fromAccount.getBalance().compareTo(request.getAmount()) < 0)
             throw new RuntimeException("Insufficient balance!");
-        }
 
-        // Balance update karo
-        fromAccount.setBalance(
-                fromAccount.getBalance().subtract(request.getAmount()));
-        toAccount.setBalance(
-                toAccount.getBalance().add(request.getAmount()));
-
+        fromAccount.setBalance(fromAccount.getBalance().subtract(request.getAmount()));
+        toAccount.setBalance(toAccount.getBalance().add(request.getAmount()));
         accountRepository.save(fromAccount);
         accountRepository.save(toAccount);
 
-        // Reference number generate karo
-        String referenceNumber = "TXN" +
-                UUID.randomUUID().toString()
-                        .replace("-", "")
-                        .substring(0, 12)
-                        .toUpperCase();
+        // ✅ FIXED - Timestamp + UUID = kabhi duplicate nahi hoga
+        String refBase = UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase();
+        String debitRef  = "TXN" + System.currentTimeMillis() + refBase + "D";
+        String creditRef = "TXN" + System.currentTimeMillis() + refBase + "C";
 
-        // Transaction save karo
-        Transaction transaction = Transaction.builder()
+        // ✅ Mode null safe
+        Transaction.TransactionMode txnMode =
+                (request.getMode() != null && !request.getMode().isEmpty())
+                        ? Transaction.TransactionMode.valueOf(request.getMode().toUpperCase())
+                        : Transaction.TransactionMode.IMPS;
+
+        // ✅ Description null safe
+        String debitDesc = (request.getDescription() != null && !request.getDescription().isEmpty())
+                ? request.getDescription()
+                : "Transfer to " + toAccount.getAccountNumber();
+
+        String creditDesc = (request.getDescription() != null && !request.getDescription().isEmpty())
+                ? request.getDescription()
+                : "Transfer from " + fromAccount.getAccountNumber();
+
+        // ✅ DEBIT - Sender (balanceAfter bhi save ho raha hai)
+        Transaction debitTxn = Transaction.builder()
                 .fromAccount(fromAccount.getAccountNumber())
                 .toAccount(toAccount.getAccountNumber())
                 .amount(request.getAmount())
-                .transactionType(Transaction.TransactionType.TRANSFER)
-                .mode(Transaction.TransactionMode
-                        .valueOf(request.getMode().toUpperCase()))
-                .description(request.getDescription())
+                .transactionType(Transaction.TransactionType.DEBIT)
+                .mode(txnMode)
+                .description(debitDesc)
                 .status(Transaction.TransactionStatus.SUCCESS)
-                .referenceNumber(referenceNumber)
+                .referenceNumber(debitRef)
+                .balanceAfter(fromAccount.getBalance()) // ✅ Bal fix
                 .build();
+        transactionRepository.save(debitTxn);
 
-        transactionRepository.save(transaction);
+        // ✅ CREDIT - Receiver (balanceAfter bhi save ho raha hai)
+        Transaction creditTxn = Transaction.builder()
+                .fromAccount(fromAccount.getAccountNumber())
+                .toAccount(toAccount.getAccountNumber())
+                .amount(request.getAmount())
+                .transactionType(Transaction.TransactionType.CREDIT)
+                .mode(txnMode)
+                .description(creditDesc)
+                .status(Transaction.TransactionStatus.SUCCESS)
+                .referenceNumber(creditRef)
+                .balanceAfter(toAccount.getBalance()) // ✅ Bal fix
+                .build();
+        transactionRepository.save(creditTxn);
 
-        // Sender ko notification
+        // Sender notification
         notificationRepository.save(Notification.builder()
                 .user(fromAccount.getUser())
                 .title("Amount Debited! 💸")
                 .message("₹" + request.getAmount() +
                         " debited from " + fromAccount.getAccountNumber() +
                         " to " + toAccount.getAccountNumber() +
-                        " | Ref: " + referenceNumber)
+                        " | Ref: " + debitRef)
                 .type(Notification.NotificationType.ALERT)
                 .build());
 
-        // Receiver ko notification
+        // Receiver notification
         notificationRepository.save(Notification.builder()
                 .user(toAccount.getUser())
                 .title("Amount Credited! 💰")
                 .message("₹" + request.getAmount() +
                         " credited to your account " +
                         toAccount.getAccountNumber() +
-                        " | Ref: " + referenceNumber)
+                        " | Ref: " + creditRef)
                 .type(Notification.NotificationType.SUCCESS)
                 .build());
 
-        return mapToResponse(transaction);
+        return mapToResponse(debitTxn);
     }
 
-    // =====================
-    // DEPOSIT (Admin)
-    // =====================
     @Transactional
-    public TransactionResponse deposit(String accountNumber,
-                                       BigDecimal amount) {
+    public TransactionResponse deposit(String accountNumber, BigDecimal amount) {
+
         Account account = accountRepository
                 .findByAccountNumber(accountNumber)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Account not found!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Account not found!"));
 
         account.setBalance(account.getBalance().add(amount));
         accountRepository.save(account);
 
-        String referenceNumber = "DEP" +
-                UUID.randomUUID().toString()
-                        .replace("-", "")
-                        .substring(0, 12)
-                        .toUpperCase();
+        // ✅ FIXED - Timestamp + UUID = kabhi duplicate nahi hoga
+        String referenceNumber = "DEP" + System.currentTimeMillis()
+                + UUID.randomUUID().toString().replace("-", "").substring(0, 6).toUpperCase();
 
         Transaction transaction = Transaction.builder()
                 .toAccount(accountNumber)
                 .amount(amount)
-                .transactionType(Transaction.TransactionType.DEPOSIT)
+                .transactionType(Transaction.TransactionType.CREDIT)
                 .mode(Transaction.TransactionMode.CASH)
-                .description("Cash Deposit")
+                .description("Cash Deposit at Branch")
                 .status(Transaction.TransactionStatus.SUCCESS)
                 .referenceNumber(referenceNumber)
+                .balanceAfter(account.getBalance()) // ✅ Bal fix
                 .build();
-
         transactionRepository.save(transaction);
 
-        // Notification
         notificationRepository.save(Notification.builder()
                 .user(account.getUser())
                 .title("Amount Deposited! 💰")
@@ -162,27 +161,23 @@ public class TransactionService {
         return mapToResponse(transaction);
     }
 
-    // =====================
-    // TRANSACTION HISTORY
-    // =====================
     public List<TransactionResponse> getMyTransactions(String email) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("User not found!"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
 
-        // User ke saare accounts ke transactions
         List<Account> accounts = accountRepository.findByUser(user);
 
         return accounts.stream()
-                .flatMap(account ->
-                        transactionRepository
-                                .findByAccountNumber(account.getAccountNumber())
-                                .stream())
+                .flatMap(account -> transactionRepository
+                        .findByFromAccountOrToAccountOrderByTransactionDateDesc(
+                                account.getAccountNumber(),
+                                account.getAccountNumber())
+                        .stream())
+                .distinct()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
 
-    // Admin: saari transactions
     public List<TransactionResponse> getAllTransactions() {
         return transactionRepository
                 .findAllByOrderByTransactionDateDesc()
@@ -191,9 +186,6 @@ public class TransactionService {
                 .collect(Collectors.toList());
     }
 
-    // =====================
-    // Helper
-    // =====================
     private TransactionResponse mapToResponse(Transaction t) {
         return TransactionResponse.builder()
                 .id(t.getId())
@@ -201,11 +193,12 @@ public class TransactionService {
                 .toAccount(t.getToAccount())
                 .amount(t.getAmount())
                 .transactionType(t.getTransactionType().name())
-                .mode(t.getMode().name())
+                .mode(t.getMode() != null ? t.getMode().name() : "IMPS")
                 .description(t.getDescription())
-                .status(t.getStatus().name())
+                .status(t.getStatus() != null ? t.getStatus().name() : "SUCCESS")
                 .referenceNumber(t.getReferenceNumber())
                 .transactionDate(t.getTransactionDate())
+                .balanceAfter(t.getBalanceAfter()) // ✅ Bal fix
                 .success(true)
                 .build();
     }

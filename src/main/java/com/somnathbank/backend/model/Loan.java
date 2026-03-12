@@ -45,9 +45,13 @@ public class Loan {
     @Builder.Default
     private BigDecimal outstandingAmount = BigDecimal.ZERO;
 
+    @Builder.Default
+    private BigDecimal paidAmount = BigDecimal.ZERO;
+
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private LoanStatus status = LoanStatus.PENDING;
+
 
     @Column(columnDefinition = "TEXT")
     private String purpose;

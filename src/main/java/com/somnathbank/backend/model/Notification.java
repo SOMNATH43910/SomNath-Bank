@@ -40,9 +40,14 @@ public class Notification {
     }
 
     public enum NotificationType {
-        INFO,     // Normal info
-        SUCCESS,  // Transaction success
-        WARNING,  // Low balance etc
-        ALERT     // Security alert
+        ACCOUNT,
+        TRANSACTION,
+        LOAN,
+        CARD,
+        FD,
+        INFO,
+        SUCCESS,
+        WARNING,
+        ALERT
     }
-}
+    }
